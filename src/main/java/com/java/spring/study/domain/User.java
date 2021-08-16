@@ -1,11 +1,16 @@
 package com.java.spring.study.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
     private String name;
     private int id;
     private String email;
 
-    public User (String name, int id, String email) {
+    public User (@JsonProperty("name") String name,
+                 @JsonProperty("id") int id, 
+                 @JsonProperty("email") String email) {
+        
         this.name = name;
         this.id = id;
         this.email = email;

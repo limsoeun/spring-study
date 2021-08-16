@@ -34,17 +34,21 @@ public class UserController {
     }
 
     @PostMapping("/api/user")
-    public void postUser(@RequestBody User user) {
+    public User postUser(@RequestBody User user) {
         service.setUser(user);
+        return user;
     }
 
     @PutMapping("/api/user")
-    public void putUser(@RequestBody User user) {
+    public User putUser(@RequestBody User user) {
         service.updateUser(user);
+        return user;
     }
 
-    @DeleteMapping("/api/user")
-    public void deleteUser(int id) {
+    @DeleteMapping("/api/user/{id}")
+    public User deleteUser(@PathVariable int id) {
+        User delete = service.getUser(id);
         service.deleteUser(id);
+        return delete;
     }
 }

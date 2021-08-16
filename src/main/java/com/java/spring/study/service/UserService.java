@@ -6,13 +6,13 @@ import java.util.List;
 import com.java.spring.study.domain.User;
 // import com.java.spring.study.repository.UserRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    @Autowired
+    // @Autowired
     // private UserRepository repository;
     
     private List<User> list = new ArrayList<>();
@@ -55,6 +55,10 @@ public class UserService {
 
     //delete
     public void deleteUser (int id) {
-        list.remove(id);
+        for (User u : list) {
+            if (u.getId() == id) {
+                list.remove(u);
+            }
+        }
     }
 }
