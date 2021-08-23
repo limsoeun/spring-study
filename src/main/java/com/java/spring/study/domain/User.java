@@ -1,46 +1,33 @@
 package com.java.spring.study.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 
-public class User {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+// import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "user")
+public class User implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, length = 20)
+    private String uuid;
+
+    @Column(name = "id", nullable = false, length = 30)
+    private String user_id;
+
+    @Column(nullable = false, length = 10)
     private String name;
-    private int id;
-    private String email;
 
-    public User (@JsonProperty("name") String name,
-                 @JsonProperty("id") int id, 
-                 @JsonProperty("email") String email) {
-        
-        this.name = name;
-        this.id = id;
-        this.email = email;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String toString () {
-        return "User [name=" + name + ", id=" + id + ", email=" + email + "]";
-    }
+    @Column(nullable = false, length = 20)
+    private String password;
 }

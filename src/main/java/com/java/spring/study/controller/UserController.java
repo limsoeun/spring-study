@@ -1,6 +1,7 @@
 package com.java.spring.study.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.java.spring.study.domain.User;
 import com.java.spring.study.service.UserService;
@@ -23,15 +24,28 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
     @GetMapping("/api/user/all")
     public List<User> getUsers() {
         return service.getAllUsers();
     }
 
-    @GetMapping("/api/user/{id}")
-    public User getUser(@PathVariable int id) {
-        return service.getUser(id);
+    @GetMapping("/api/user/{uuid}")
+    public Optional<User> getUser(@PathVariable String uuid) {
+        return service.getUser(uuid);
     }
+
+    // @GetMapping("/api/user/{uuid}")
+    // public String getUser(@PathVariable String uuid) {
+    //     String result = "";
+    //     for (User user : repository.findByUuid(uuid)) {
+    //         result += user.toString();
+    //     }
+    //     return result;
+    // }
 
     @PostMapping("/api/user")
     public User postUser(@RequestBody User user) {
@@ -45,10 +59,8 @@ public class UserController {
         return user;
     }
 
-    @DeleteMapping("/api/user/{id}")
-    public User deleteUser(@PathVariable int id) {
-        User delete = service.getUser(id);
-        service.deleteUser(id);
-        return delete;
+    @DeleteMapping("/api/user/{uuid}")
+    public void deleteUser(@PathVariable String uuid) {
+        service.deleteUser(uuid);
     }
 }
