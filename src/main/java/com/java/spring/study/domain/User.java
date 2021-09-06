@@ -1,7 +1,5 @@
 package com.java.spring.study.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "user")
-public class User implements Serializable{
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, length = 20)

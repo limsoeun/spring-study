@@ -1,9 +1,9 @@
 package com.java.spring.study.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.java.spring.study.domain.User;
+// import com.java.spring.study.repository.UserRepository;
 import com.java.spring.study.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,9 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    // @Autowired
+    // private UserRepository repository;
+
     @GetMapping("/test")
     public String test() {
         return "test";
@@ -34,18 +37,9 @@ public class UserController {
     }
 
     @GetMapping("/api/user/{uuid}")
-    public Optional<User> getUser(@PathVariable String uuid) {
+    public User getUser(@PathVariable String uuid) {
         return service.getUser(uuid);
     }
-
-    // @GetMapping("/api/user/{uuid}")
-    // public String getUser(@PathVariable String uuid) {
-    //     String result = "";
-    //     for (User user : repository.findByUuid(uuid)) {
-    //         result += user.toString();
-    //     }
-    //     return result;
-    // }
 
     @PostMapping("/api/user")
     public User postUser(@RequestBody User user) {
