@@ -1,6 +1,5 @@
 package com.java.spring.study.repository;
 
-
 import com.java.spring.study.domain.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, String> {
 
     User findByUser_id(String user_id);
+
     User findByUuid(String uuid);
 }
