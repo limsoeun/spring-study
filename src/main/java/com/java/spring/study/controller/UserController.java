@@ -1,15 +1,16 @@
 package com.java.spring.study.controller;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.websocket.server.PathParam;
 
 import com.java.spring.study.domain.User;
-// import com.java.spring.study.repository.UserRepository;
 import com.java.spring.study.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +22,9 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    // @Autowired
-    // private UserRepository repository;
-
-    @GetMapping("/test")
-    public String test() {
-        return "test";
+    @PostMapping("/test")
+    public User test(@RequestBody User u) {
+        return service.testService(u);
     }
 
     @GetMapping("/api/user/all")
@@ -34,25 +32,23 @@ public class UserController {
         return service.getAllUsers();
     }
 
-    @GetMapping("/api/user/{uuid}")
-    public User getUser(@PathVariable String uuid) {
+    @GetMapping("/api/user")
+    public Optional<User> getUser(@PathParam("uuid") String uuid) {
         return service.getUser(uuid);
     }
 
     @PostMapping("/api/user")
     public User postUser(@RequestBody User user) {
-        service.setUser(user);
-        return user;
+        return service.setUser(user);
     }
 
     @PutMapping("/api/user")
-    public User putUser(@RequestBody User user) {
-        service.updateUser(user);
-        return user;
+    public Optional<User> putUser(@RequestBody User user) {
+        return service.updateUser(user);
     }
 
-    @DeleteMapping("/api/user/{uuid}")
-    public void deleteUser(@PathVariable String uuid) {
+    @DeleteMapping("/api/user")
+    public void deleteUser(@PathParam("uuid") String uuid) {
         service.deleteUser(uuid);
     }
 }

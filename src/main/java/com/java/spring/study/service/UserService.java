@@ -1,7 +1,7 @@
 package com.java.spring.study.service;
 
-// import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.java.spring.study.domain.User;
 import com.java.spring.study.repository.UserRepository;
@@ -17,7 +17,10 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    // private List<User> list = new ArrayList<>();
+    public User testService(User u) {
+        User user = repository.save(u);
+        return user;
+    }
 
     public UserService() {
         System.out.println("service");
@@ -27,50 +30,35 @@ public class UserService {
     public List<User> getAllUsers() {
         return repository.findAll();
     }
-    // public List<User> getAllUsers() {
-    // return repository.findAll();
-    // }
 
     // get
-    // public User getUser (String uuid) {
-    // for (User u : list) {
-    // if (u.getUuid() == uuid) {
-    // return u;
-    // }
-    // }
-    // return null;
-    // }
-    // public Optional<User> getUser (String uuid) {
-    // return repository.findById(uuid);
-    // }
-    public User getUser(String uuid) {
-        return repository.findByUuid(uuid);
+    public Optional<User> getUser(String uuid) {
+        return repository.findById(uuid);
     }
 
     // set
-    public void setUser(User user) {
-        // this.list.add(user);
-        repository.save(user);
+    public User setUser(User user) {
+        repository.insertUser(user); // repository.save(user);
+        return user;
     }
 
     // update
-    public void updateUser(User user) {
-        // for (User u : list) {
-        // if (u.getUuid() == user.getUuid()) {
-        // u.setName(user.getName());
-        // u.setPassword(user.getPassword());
-        // }
-        // }
-        repository.save(user);
+    public Optional<User> updateUser(User user) {
+        Optional<User> updateUser = repository.findById(user.getUuid());
+
+        updateUser.ifPresent(selectUser->{
+            selectUser.setName(user.getName());
+            selectUser.setPassword(user.getPassword());
+            selectUser.setUser_id(user.getUser_id());
+            
+            repository.save(selectUser);
+        });
+
+        return updateUser;
     }
 
     // delete
     public void deleteUser(String uuid) {
-        // for (User u : list) {
-        // if (u.getUuid() == uuid) {
-        // list.remove(u);
-        // }
-        // }
         repository.deleteById(uuid);
     }
 }
