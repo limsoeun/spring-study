@@ -38,6 +38,11 @@ public class UserController {
     }
 
     @PostMapping("/api/user")
+    public User postQueryUser(@RequestBody User user) {
+        return service.setQueryUser(user);
+    }
+
+    @PostMapping("/api/user/query")
     public User postUser(@RequestBody User user) {
         return service.setUser(user);
     }
@@ -50,5 +55,10 @@ public class UserController {
     @DeleteMapping("/api/user")
     public void deleteUser(@PathParam("uuid") String uuid) {
         service.deleteUser(uuid);
+    }
+
+    @PostMapping("/api/sync/db")
+    public List<User> dbSyncUser() {
+        return service.syncUser();
     }
 }
